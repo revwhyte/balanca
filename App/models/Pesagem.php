@@ -2,7 +2,6 @@
   require_once('Database.php');
 
   class Pesagem {
-    private $id;
     private $peso;
     private $data;
 
@@ -12,18 +11,39 @@
     }
 
     // DB
-
-    public function createPesagem($dbh) {
+    // insere no banco quando instancia uma nova pesagem
+    public function criarPesagem($dbh) {
       try {
         // cria string de query
-        $sth = $dbh->prepare("INSERT INTO Pesagem(ps_peso, ps_data) VALUES(:peso, :data)");
+        $sth = $dbh->prepare("INSERT INTO pesagem(ps_peso, ps_data) VALUES(:peso, :data)");
         // amarra os parametros (prevenção de sql injection)
+        $sth->bindParam(":peso", $this->getPeso(), PDO::PARAM_STR);
+        $sth->bindParam(":data", $this->getData(), PDO::PARAM_STR);
+        // retorna a execução da query
+        return $sth->execute();
 
       } catch (PDOException $e) {
-        echo $e->getMessage();
+        $e->getMessage();
 
       }
+    }
 
+    public static function buscarPesagem($dbh, $data) {
+      try {
+        //string de query
+        $sth = $dbh->prepare("SELECT ps_peso, ps_data FROM pesagem WHERE ps_data = :data");
+        // amarra parametros
+        $sth->bindParam(":data", $data, PDO::PARAM_STR);
+        // executa query
+        $sth->execute();
+        // extrai resultados
+        $result = sth->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+
+      } catch(PDOException $e) {
+        $e->getMessage();
+      }
     }
 
     // Acessores
