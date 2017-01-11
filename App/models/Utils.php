@@ -6,5 +6,11 @@
       return $data;
     }
 
+    public static function debugarVariavel($var) {
+      echo '<pre>';
+      var_dump($var);
+      die;
+    }
+
   }
 ?>

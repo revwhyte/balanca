@@ -50,7 +50,15 @@
     // retorna todas as pesagens
     public static function retornaPesagens($dbh) {
       try {
-        //pieces of code
+        //string de query
+        $sth = $dbh->prepare("SELECT ps_data, ps_peso FROM pesagem");
+        // executa query
+        $sth->execute();
+        // extrai resultados
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+
       } catch(PDOException $e) {
         $e->getMessage();
       }
