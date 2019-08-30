@@ -4,7 +4,7 @@
 	<?php include('../includes/HEAD.INC'); ?>
 	<body>
 		<?php include('../includes/header.php'); ?>
-		<h2>Balança</h2>
+		<h2>Balança Mudança</h2>
 		<?php
 			if(array_key_exists('criado', $_SESSION) && ($_SESSION['criado'] == true)) {
 				echo '<div class="alert alert-success" role="alert">Pesagem registrada!</div>';
